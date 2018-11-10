@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--  自动扫描的包名  把带有@Service, @Repository, @Component 注解的类转换为bean -->
+    <!--  不扫描带有@Controller注解的类。因为这些类已经随容器启动时，在spring-yuan-servlet中扫描过一遍了-->
+    <!--因此当使用 <context:component-scan/> 后，就可以将 <context:annotation-config/> 移除了  -->
+    <context:component-scan base-package="com.yuan">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    <!--配置自动代理,使用配置注解  -->
+    <aop:aspectj-autoproxy />
+    <import resource="spring-cache.xml"/>
+</beans>
