@@ -7,7 +7,7 @@
     </settings>
     <typeAliases>
         <!-- 用户 -->
-        <typeAlias alias="USER" type="com.yuan.entity.User"></typeAlias>
+        <typeAlias alias="USER" type="com.yuan.business.domain.User"></typeAlias>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mybatis-user.xml" />

@@ -32,6 +32,7 @@
         <property name="maxPoolSize" value="10"/>
         <property name="queueCapacity" value="25"/>
     </bean>
+
     <import resource="spring-cache.xml"/>
     <import resource="spring-dao.xml"/>
 </beans>

@@ -10,6 +10,16 @@ public class User {
     private Integer id; //主键
     private String username; //登录用户
     private String password; //登录密码
+
+    public User(Integer id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User() {
+    }
+
     public Integer getId() {
         return id;
     }

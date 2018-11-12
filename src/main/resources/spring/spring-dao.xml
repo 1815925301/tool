@@ -1,17 +1,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- scan for mappers and let them be autowired -->
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--<property name="basePackage" value="com.yuan.**.dao" />-->
-        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory" />-->
-    <!--</bean>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yuan.business.**.dao" />
+        <!-- 这里 用sqlSessionFactoryBeanName，而不是sqlSessionFactory，接下来用value而不是ref -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:spring/spring-mybatis.xml"/>
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath*:mybatis-mapping/*.xml"></property>
+        <!--<property name="mapperLocations" value="classpath*:mybatis-mapping/*.xml"></property>-->
     </bean>
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -37,11 +39,33 @@
         <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"></property>
     </bean>
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <!-- 配置JDBC数据源的局部事务管理器，使用DataSourceTransactionManager类 -->
+    <!-- 该类实现PlatformTransactionManager接口，是针对采用数据源连接的特定实现 -->
+    <!-- 配置DataSourceTransactionManager时需要依赖注入DataSource的引用 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
     <!-- 配置基于注解的声明式事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
+    <!-- 事务切面配置(编程式事务) -->
+    <aop:config>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com.yuan.business.manage.*Manage.*(..))" order="0"/>
+    </aop:config>
+    <!-- 通知配置 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 所有以get开头的方法是只读的 -->
+            <tx:method name="get*" read-only="true"/>
+            <!-- 其他方法使用默认的事务设置，指定超时时长为5秒 -->
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="5"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="noTxAdvice">
+        <tx:attributes>
+            <tx:method name="*" propagation="NEVER"/>
+        </tx:attributes>
+    </tx:advice>
 </beans>
