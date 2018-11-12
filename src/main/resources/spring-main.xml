@@ -13,25 +13,7 @@
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-    <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:prop/jdbc.properties</value>
-                <value>classpath:prop/application.properties</value>
-                <value>classpath:prop/jmq.properties</value>
-            </list>
-        </property>
-    </bean>
     <!--配置自动代理,使用配置注解  -->
     <aop:aspectj-autoproxy />
-    <!-- taskExecutor -->
-    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="corePoolSize" value="5"/>
-        <property name="keepAliveSeconds" value="300"/>
-        <property name="maxPoolSize" value="10"/>
-        <property name="queueCapacity" value="25"/>
-    </bean>
     <import resource="spring-cache.xml"/>
-    <import resource="spring-dao.xml"/>
 </beans>

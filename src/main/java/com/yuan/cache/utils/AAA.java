@@ -7,6 +7,4 @@ package com.yuan.cache.utils;
  * Description: ${DESCRIPTION}
  */
 public class AAA {
-
-
 }

@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/spring-main.xml")
+@ContextConfiguration("classpath:spring-main.xml")
 public class CacheTest {
     private final Logger logger = LoggerFactory.getLogger(CacheTest.class);
     @Resource
