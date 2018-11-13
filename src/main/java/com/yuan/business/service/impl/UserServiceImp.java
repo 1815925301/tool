@@ -2,7 +2,10 @@ package com.yuan.business.service.impl;
 
 import com.yuan.business.domain.User;
 import com.yuan.business.manage.UserManage;
+import com.yuan.business.manage.impl.UserManageImpl;
 import com.yuan.business.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -15,10 +18,16 @@ import javax.annotation.Resource;
  */
 @Component
 public class UserServiceImp implements UserService {
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
+
     @Resource
     private UserManage userManage;
     @Override
     public void insertUser(User user) {
-        userManage.insertUser(user);
+        try {
+            userManage.testInsert(user);
+        }catch (Exception e){
+            logger.info("error111:"+e.getMessage());
+        }
     }
 }

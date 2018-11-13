@@ -18,13 +18,13 @@
         <property name="locations">
             <list>
                 <value>classpath:prop/jdbc.properties</value>
-                <value>classpath:prop/application.properties</value>
-                <value>classpath:prop/jmq.properties</value>
+                <!--<value>classpath:prop/application.properties</value>
+                <value>classpath:prop/jmq.properties</value>-->
             </list>
         </property>
     </bean>
     <!--配置自动代理,使用配置注解  -->
     <aop:aspectj-autoproxy />
-
     <import resource="spring-cache.xml"/>
+    <import resource="spring-dao.xml"/>
 </beans>

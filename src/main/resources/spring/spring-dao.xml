@@ -1,8 +1,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.yuan.business.**.dao" />
@@ -49,25 +54,19 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     <!-- 配置基于注解的声明式事务 -->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- 事务切面配置(编程式事务) -->
-    <aop:config>
+   <!-- <aop:config>
         <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* com.yuan.business.manage.*Manage.*(..))" order="0"/>
     </aop:config>
-    <!-- 通知配置 -->
+    &lt;!&ndash; 通知配置 &ndash;&gt;
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <!-- 所有以get开头的方法是只读的 -->
+            &lt;!&ndash; 所有以get开头的方法是只读的 &ndash;&gt;
             <tx:method name="get*" read-only="true"/>
-            <!-- 其他方法使用默认的事务设置，指定超时时长为5秒 -->
+            &lt;!&ndash; 其他方法使用默认的事务设置，指定超时时长为5秒 &ndash;&gt;
             <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="5"/>
         </tx:attributes>
-    </tx:advice>
-
-    <tx:advice id="noTxAdvice">
-        <tx:attributes>
-            <tx:method name="*" propagation="NEVER"/>
-        </tx:attributes>
-    </tx:advice>
+    </tx:advice>-->
 </beans>
