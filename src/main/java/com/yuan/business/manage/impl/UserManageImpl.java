@@ -34,6 +34,8 @@ public class UserManageImpl implements UserManage {
         try {
             userDao.insertUser(user);
             testInsert(user);
+            int i = 5;
+            int j = i/0;
         }catch (RuntimeException e){
             logger.info("-----------------------");
             //e.printStackTrace();
@@ -41,12 +43,13 @@ public class UserManageImpl implements UserManage {
         }
 
     }
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void testInsert(User user){
         int i = 5;
-        user.setId(5);
-        userDao.insertUser(user);
+        //user.setId(5);
+        User u = new User(6,"11","22");
+        userDao.insertUser(u);
         //insertUser(user);
-        int j = i/0;
+        //int j = i/0;
     }
 }

@@ -1,6 +1,7 @@
 package com.yuan.tool.buiness;
 
 import com.yuan.business.domain.User;
+import com.yuan.business.manage.impl.UserManageImpl;
 import com.yuan.business.service.UserService;
 import com.yuan.tool.CacheTest;
 import org.apache.logging.log4j.LogManager;

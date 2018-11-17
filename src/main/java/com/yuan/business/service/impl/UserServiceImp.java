@@ -25,7 +25,7 @@ public class UserServiceImp implements UserService {
     @Override
     public void insertUser(User user) {
         try {
-            userManage.testInsert(user);
+            userManage.insertUser(user);
         }catch (Exception e){
             logger.info("error111:"+e.getMessage());
         }
