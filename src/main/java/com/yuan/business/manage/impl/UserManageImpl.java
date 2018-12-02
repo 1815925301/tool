@@ -52,4 +52,9 @@ public class UserManageImpl implements UserManage {
         //insertUser(user);
         //int j = i/0;
     }
+
+    @Override
+    public User queryUser(User user){
+      return userDao.queryUser(user);
+    }
 }

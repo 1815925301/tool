@@ -10,4 +10,5 @@ import com.yuan.business.domain.User;
  */
 public interface UserDao {
     int insertUser(User user);
+    User queryUser(User u);
 }

@@ -10,4 +10,5 @@ import com.yuan.business.domain.User;
  */
 public interface UserService {
     void insertUser(User user);
+    void queryUser(User user);
 }

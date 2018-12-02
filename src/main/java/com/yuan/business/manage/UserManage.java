@@ -11,4 +11,5 @@ import com.yuan.business.domain.User;
 public interface UserManage {
     void insertUser(User user);
     void testInsert(User user);
+    User queryUser(User user);
 }

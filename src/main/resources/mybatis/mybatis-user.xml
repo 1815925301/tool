@@ -4,7 +4,11 @@
     <sql id="base_column">
 	    id, username,password
 	</sql>
-
+    <resultMap id="userResult" type="USER">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+    </resultMap>
     <insert id="insertUser" parameterType="USER">
         insert into user (
         <trim suffix="" suffixOverrides=",">
@@ -30,4 +34,12 @@
         </trim>
         )
     </insert>
+
+    <select id="queryUser" resultMap="userResult" parameterType="USER">
+        SELECT
+        <include refid="base_column"/>
+        FROM
+        user
+        WHERE id = #{id}
+    </select>
 </mapper>

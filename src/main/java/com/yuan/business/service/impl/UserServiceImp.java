@@ -30,4 +30,8 @@ public class UserServiceImp implements UserService {
             logger.info("error111:"+e.getMessage());
         }
     }
+    @Override
+    public void queryUser(User user){
+        userManage.queryUser(user);
+    }
 }
