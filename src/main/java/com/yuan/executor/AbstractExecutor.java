@@ -1,5 +1,9 @@
 package com.yuan.executor;
 
+import com.yuan.aspect.ExecutorAspect;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.concurrent.*;
 
 /**
@@ -9,6 +13,7 @@ import java.util.concurrent.*;
  * Description: ${DESCRIPTION}
  */
 public class AbstractExecutor implements ExecutorServiceHandler {
+    private static Logger logger = LogManager.getLogger(AbstractExecutor.class);
 
     /**
      * 注意ExecutorService和ThreadPoolExecutor的关系。。。
@@ -29,6 +34,7 @@ public class AbstractExecutor implements ExecutorServiceHandler {
                 threadPoolExecutor_.set(threadPoolExecutor);
             }
             //threadPoolExecutor =  threadPoolExecutor_.get();
+            logger.error("AbstractExecutor----poolsize:{}",poolSize);
             threadPoolExecutor = (ThreadPoolExecutor)Executors.newFixedThreadPool(poolSize);
         }
     }
@@ -36,8 +42,8 @@ public class AbstractExecutor implements ExecutorServiceHandler {
     @Override
     public <T> Future handle(Callable<T> callable) {
         Future<T> submitResult = threadPoolExecutor.submit(callable);
-        System.out.println("线程池中现在的线程数目是："+threadPoolExecutor.getPoolSize()+",  队列中正在等待执行的任务数量为："+
-                threadPoolExecutor.getQueue().size());
+        /*System.out.println("线程池中现在的线程数目是："+threadPoolExecutor.getPoolSize()+",  队列中正在等待执行的任务数量为："+
+                threadPoolExecutor.getQueue().size());*/
         return submitResult;
     }
 

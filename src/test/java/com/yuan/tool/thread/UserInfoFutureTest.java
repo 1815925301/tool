@@ -51,22 +51,28 @@ public class UserInfoFutureTest {
     public void testFuture() {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
-        map.put("2", "2");
+        /*map.put("2", "2");
         map.put("3", "2");
         map.put("4", "2");
         map.put("5", "2");
         map.put("6", "2");
-        map.put("7", "2");
-        for (int i = 1; i < 3; i++) {
+        map.put("7", "2");*/
+        for (int i = 1; i < 7; i++) {
             switch (i) {
                 case 1:
+                case 3:
+                case 5:
                     List<Map<String, String>> invoke = userInfoTaskQuery.invoke(map);
                     logger.error("userInfoTaskQuery-----invokeResult:{}",JsonUtil.toJson(invoke));
                     break;
                 case 2:
+                case 4:
+                case 6:
                     List<Map<String, String>> invoke1 = userInfoTaskAdd.invoke(map);
                     logger.error("userInfoTaskAdd-----invokeResult:{}",JsonUtil.toJson(invoke1));
                     break;
+                default:
+                    System.out.println("default");break;
             }
         }
     }

@@ -138,7 +138,7 @@ public class ExecutorAspect extends AbstractExecutor implements BeanFactoryAware
                 keyId.set(beanTask, key);
                 Future handle = super.handle((Callable) beanTask);
                 Map<String, String> result = (Map<String, String>) handle.get();
-                logger.error("result:{}", JsonUtil.toJson(result));
+                //logger.error("result:{}", JsonUtil.toJson(result));
                 futureMap.add(result);
             }
             proceed = joinPoint.proceed();
@@ -149,6 +149,7 @@ public class ExecutorAspect extends AbstractExecutor implements BeanFactoryAware
             throw new RuntimeException(e);
         } finally {
             if (!single) {
+                logger.error("-----shotDown---");
                 super.shotDown();
             }
         }
