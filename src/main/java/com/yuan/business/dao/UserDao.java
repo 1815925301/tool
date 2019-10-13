@@ -1,6 +1,7 @@
 package com.yuan.business.dao;
 
 import com.yuan.business.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * FileName: UserDao
@@ -10,5 +11,5 @@ import com.yuan.business.domain.User;
  */
 public interface UserDao {
     int insertUser(User user);
-    User queryUser(User u);
+    User queryUser(@Param("") User u);
 }
