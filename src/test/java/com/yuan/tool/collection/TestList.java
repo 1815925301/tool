@@ -4,10 +4,7 @@ import com.yuan.utils.JsonUtil;
 import org.junit.Test;
 
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * FileName: TestList
@@ -44,5 +41,7 @@ public class TestList {
         list1.add(1,"211");
         System.out.println(JsonUtil.toJson(list1));
     }
+
+
 }
 

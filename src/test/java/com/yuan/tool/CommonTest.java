@@ -55,4 +55,29 @@ public class CommonTest {
         src[--length] = null;
         System.out.println("112:"+Arrays.toString(src));
     }
+
+    public String expression1(){
+
+        String aa = "22";
+        try{
+            aa="22";
+            int i = 1/0;
+            return aa;
+        }catch (Exception e){
+            System.out.println(22);
+        }finally {
+            System.out.println(333);
+            aa="333";
+        }
+        System.out.println(aa);
+        return aa;
+    }
+
+    @Test
+    public void aa2(){
+        String s = expression1();
+        System.out.println(s);
+        BuildModel buildModel = new BuildModel.Build("灰色").ice(true).bulid();
+        AbstractTest.V1.aa();
+    }
 }
